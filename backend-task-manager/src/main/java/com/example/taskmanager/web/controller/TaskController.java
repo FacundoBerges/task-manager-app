@@ -1,7 +1,6 @@
 package com.example.taskmanager.web.controller;
 
 
-import com.example.taskmanager.domain.dto.BadRequestResponseDto;
 import com.example.taskmanager.domain.service.TaskService;
 import com.example.taskmanager.domain.dto.TaskDto;
 
@@ -10,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
