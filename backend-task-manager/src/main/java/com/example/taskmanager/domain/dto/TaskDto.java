@@ -6,6 +6,8 @@ import lombok.*;
 @Data @NoArgsConstructor @AllArgsConstructor
 public class TaskDto {
 
-    private String description;
+    private String id;
+    private String taskDescription;
+    private Boolean completed;
 
 }

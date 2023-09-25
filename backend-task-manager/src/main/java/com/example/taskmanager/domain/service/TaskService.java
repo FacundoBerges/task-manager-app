@@ -1,7 +1,7 @@
 package com.example.taskmanager.domain.service;
 
 import com.example.taskmanager.persistence.entity.Task;
-import com.example.taskmanager.persistence.mapper.TaskMapper;
+import com.example.taskmanager.persistence.mapper.ITaskMapper;
 import com.example.taskmanager.persistence.repository.ITaskRepository;
 import com.example.taskmanager.domain.dto.TaskDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +13,10 @@ import java.util.Optional;
 @Service
 public class TaskService {
     private final ITaskRepository taskRepository;
-    private final TaskMapper mapper;
+    private final ITaskMapper mapper;
 
     @Autowired
-    public TaskService(ITaskRepository taskRepository, TaskMapper mapper) {
+    public TaskService(ITaskRepository taskRepository, ITaskMapper mapper) {
         this.taskRepository = taskRepository;
         this.mapper = mapper;
     }
@@ -26,11 +26,21 @@ public class TaskService {
     }
 
     public Optional<TaskDto> add(TaskDto taskDto) {
-        if(taskDto == null || taskDto.getDescription().trim().isEmpty()) {
+        if(     taskDto == null ||
+                taskDto.getTaskDescription() == null ||
+                taskDto.getTaskDescription().trim().isEmpty() ) {
             return Optional.empty();
         }
 
         Task task = mapper.toTask(taskDto);
+
+        task.setTaskId("");
+
+        task.setFinished(
+            taskDto.getCompleted() != null
+                ? taskDto.getCompleted()
+                : false
+        );
 
         return Optional.of( mapper.toTaskDTO( taskRepository.save(task) ) );
     }

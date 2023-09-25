@@ -6,17 +6,22 @@ import com.example.taskmanager.persistence.entity.Task;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public interface TaskMapper {
+public interface ITaskMapper {
 
+    @Mappings({
+        @Mapping(source = "taskId", target = "id"),
+        @Mapping(source = "description", target = "taskDescription"),
+        @Mapping(source = "finished", target = "completed")
+    })
     TaskDto toTaskDTO(Task task);
     List<TaskDto> toTaskDTOList(List<Task> tasks);
 
     @InheritInverseConfiguration
-    @Mapping(target = "idTask", ignore = true)
     Task toTask(TaskDto taskDto);
 
 }

@@ -16,9 +16,12 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id_task", nullable = false, unique = true, length = 36)
-    private String idTask;
+    private String taskId;
 
     @Column(nullable = false)
     private String description;
+
+    @Column(nullable = false)
+    private boolean finished;
 
 }
